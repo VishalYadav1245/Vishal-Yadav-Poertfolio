@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import emailjs from "@emailjs/browser"; // ← ADD THIS
 
 export default function Contact() {
   const [loading, setLoading] = useState(false);
@@ -20,25 +19,21 @@ export default function Contact() {
       message: e.target.message.value,
     };
 
-    // EmailJS Send
-    emailjs
-      .send(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID",
-        data,
-        "YOUR_PUBLIC_KEY"
-      )
-      .then(
-        () => {
-          setLoading(false);
-          setSent(true);
-          e.target.reset();
-        },
-        (error) => {
-          console.log("FAILED...", error);
-          setLoading(false);
-        }
-      );
+    // Send request to Backend API
+    const res = await fetch("/api/sendmail", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    setLoading(false);
+
+    if (res.ok) {
+      setSent(true);
+      e.target.reset();
+    } else {
+      alert("Message failed to send!");
+    }
   }
 
   return (
@@ -47,7 +42,6 @@ export default function Contact() {
       className="px-6 py-16 bg-[rgba(0,0,0,0.55)] backdrop-blur-md w-full"
     >
       <div className="w-full">
-
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -58,15 +52,12 @@ export default function Contact() {
         </motion.h2>
 
         <div className="grid md:grid-cols-2 gap-12">
-
-          {/* LEFT SIDE CONTACT INFO */}
+          {/* Left side */}
           <div className="space-y-6">
-            <div className="flex items-center gap-4">
-              <p className="text-gray-200 text-lg">vy0369156@gmail.com</p>
-            </div>
+            <p className="text-gray-200 text-lg">vy0369156@gmail.com</p>
           </div>
 
-          {/* RIGHT FORM */}
+          {/* Right side - Form */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
