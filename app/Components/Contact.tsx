@@ -2,14 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import {
-  FaEnvelope,
-  FaPhoneAlt,
-  FaLinkedin,
-  FaInstagram,
-  FaGithub,
-  FaMapMarkerAlt,
-} from "react-icons/fa";
+import emailjs from "@emailjs/browser"; // ← ADD THIS
 
 export default function Contact() {
   const [loading, setLoading] = useState(false);
@@ -27,16 +20,25 @@ export default function Contact() {
       message: e.target.message.value,
     };
 
-    const res = await fetch("/api/sendMail", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-
-    setLoading(false);
-    if (res.ok) {
-      setSent(true);
-      e.target.reset();
-    }
+    // EmailJS Send
+    emailjs
+      .send(
+        "YOUR_SERVICE_ID",
+        "YOUR_TEMPLATE_ID",
+        data,
+        "YOUR_PUBLIC_KEY"
+      )
+      .then(
+        () => {
+          setLoading(false);
+          setSent(true);
+          e.target.reset();
+        },
+        (error) => {
+          console.log("FAILED...", error);
+          setLoading(false);
+        }
+      );
   }
 
   return (
@@ -44,10 +46,8 @@ export default function Contact() {
       id="contact"
       className="px-6 py-16 bg-[rgba(0,0,0,0.55)] backdrop-blur-md w-full"
     >
-      {/* FULL WIDTH FIX HERE */}
       <div className="w-full">
 
-        {/* Title */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -59,41 +59,11 @@ export default function Contact() {
 
         <div className="grid md:grid-cols-2 gap-12">
 
-          {/* LEFT SIDE */}
+          {/* LEFT SIDE CONTACT INFO */}
           <div className="space-y-6">
-
             <div className="flex items-center gap-4">
-              <FaEnvelope className="text-purple-400" size={26} />
               <p className="text-gray-200 text-lg">vy0369156@gmail.com</p>
             </div>
-
-            <div className="flex items-center gap-4">
-              <FaPhoneAlt className="text-purple-400" size={26} />
-              <p className="text-gray-200 text-lg">6388218393</p>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <FaMapMarkerAlt className="text-purple-400" size={26} />
-              <p className="text-gray-200 text-lg">New Delhi, India</p>
-            </div>
-
-            <div className="space-y-4">
-              <a href="https://www.linkedin.com/in/vishal-yadav-802ba02a3/"
-                 className="flex items-center gap-4 text-gray-200 hover:text-white">
-                <FaLinkedin className="text-purple-400" size={26} /> LinkedIn Profile
-              </a>
-
-              <a href="https://www.instagram.com/zyntrixio/"
-                 className="flex items-center gap-4 text-gray-200 hover:text-white">
-                <FaInstagram className="text-purple-400" size={26} /> Instagram Profile
-              </a>
-
-              <a href="https://github.com/VishalYadav1245"
-                 className="flex items-center gap-4 text-gray-200 hover:text-white">
-                <FaGithub className="text-purple-400" size={26} /> GitHub Profile
-              </a>
-            </div>
-
           </div>
 
           {/* RIGHT FORM */}
@@ -114,9 +84,7 @@ export default function Contact() {
               <input className="contact-input" required name="subject" placeholder="Subject *" />
               <textarea className="contact-input" rows={4} required name="message" placeholder="Your Message *"></textarea>
 
-              <button
-                className="w-full py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-full shadow-lg"
-              >
+              <button className="w-full py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-full shadow-lg">
                 {loading ? "Sending..." : "Send Message"}
               </button>
 
@@ -125,7 +93,6 @@ export default function Contact() {
                   Message Sent Successfully ✔
                 </p>
               )}
-
             </form>
           </motion.div>
         </div>
