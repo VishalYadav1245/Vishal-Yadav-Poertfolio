@@ -4,7 +4,7 @@ import { FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="w-full py-8 bg-[rgba(0,0,0,0.45)] backdrop-blur-md border-t border-white/20 mt-20">
+    <footer className="w-full py-8 bg-[rgba(0,0,0,0.45)] backdrop-blur-md border-t border-white/20 ">
       <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between text-gray-300">
 
         {/* NAME */}

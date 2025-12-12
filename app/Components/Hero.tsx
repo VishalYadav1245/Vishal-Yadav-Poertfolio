@@ -4,9 +4,11 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="min-h-screen px-6 py-20 bg-[rgba(0,0,0,0.55)] backdrop-blur-md">
-      
-      {/* FLEX: column on mobile, row on desktop → NO DESKTOP CHANGES */}
+    <section
+      id="home"   // ✅ IMPORTANT: Fixed ID so Header → Home scrolls correctly
+      className="min-h-screen px-6 py-20 bg-[rgba(0,0,0,0.55)] backdrop-blur-md"
+    >
+      {/* FLEX: column on mobile, row on desktop */}
       <div className="flex flex-col md:flex-row items-center md:items-center gap-12 md:gap-20 max-w-7xl mx-auto">
 
         {/* ---- LEFT: PROFILE IMAGE ---- */}
@@ -26,7 +28,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ---- RIGHT: TEXT ---- */}
+        {/* ---- RIGHT: TEXT CONTENT ---- */}
         <div className="text-white text-center md:text-left md:translate-x-4">
 
           <h1 className="text-5xl sm:text-6xl md:text-8xl font-extrabold tracking-wide leading-tight">
@@ -45,9 +47,12 @@ export default function Hero() {
 
           {/* BUTTON GROUP */}
           <div className="mt-8 flex justify-center md:justify-start gap-6">
-            <button className="px-8 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition">
+            <a
+              href="#projects"
+              className="px-8 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition"
+            >
               View My Work
-            </button>
+            </a>
 
             <a
               href="/resume.pdf"

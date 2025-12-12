@@ -64,7 +64,7 @@ export default function Header() {
         <nav className="hidden md:block">
           <ul className="flex items-center gap-10 text-lg font-semibold">
             {[
-              { name: "Home", id: "home" },
+              { name: "Home", id: "home" },   // ✅ FIXED
               { name: "Skill", id: "skills" },
               { name: "Project", id: "projects" },
               { name: "About", id: "about" },
@@ -92,7 +92,7 @@ export default function Header() {
           </ul>
         </nav>
 
-        {/* MOBILE HAMBURGER BUTTON (Tailwind-based) */}
+        {/* MOBILE HAMBURGER */}
         <div
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="md:hidden flex flex-col gap-1 cursor-pointer"
@@ -124,7 +124,7 @@ export default function Header() {
         >
           <ul className="flex flex-col items-center gap-6 text-lg font-semibold text-white pb-4">
             {[
-              { name: "Home", id: "home" },
+              { name: "Home", id: "home" },   // ✅ FIXED
               { name: "Skill", id: "skills" },
               { name: "Project", id: "projects" },
               { name: "About", id: "about" },
