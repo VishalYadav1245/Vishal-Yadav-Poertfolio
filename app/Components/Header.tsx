@@ -58,7 +58,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto flex items-center justify-between py-5 px-6 text-white">
 
         {/* LOGO */}
-        <h1 className="text-3xl font-extrabold tracking-wider cursor-pointer">VS</h1>
+        <h1 className="text-3xl font-extrabold tracking-wider cursor-pointer">VISHAL</h1>
 
         {/* DESKTOP NAV */}
         <nav className="hidden md:block">
